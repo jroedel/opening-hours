@@ -523,6 +523,9 @@ class OpeningHours
 
     public function asStructuredData(string $format = 'H:i', $timezone = null): array
     {
+        if (!isset($timezone)) {
+            $timezone = $this->timezone;
+        }
         $regularHours = $this->flatMap(function (OpeningHoursForDay $openingHoursForDay, string $day) use ($format, $timezone) {
             return $openingHoursForDay->map(function (TimeRange $timeRange) use ($format, $timezone, $day) {
                 return [
